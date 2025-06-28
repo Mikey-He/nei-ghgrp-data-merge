@@ -195,8 +195,9 @@ class NEIGHGRPMerger:
         
         # Reorder columns as in working script
         cols_to_move = ["Facility Type", "EIS Facility ID", "NAICS"]
-        other_cols = [col for col in df.columns if col not in cols_to_move]
-        df = df[other_cols + cols_to_move]
+        cols_present = [c for c in cols_to_move if c in df.columns]
+        other_cols = [c for c in df.columns if c not in cols_present]
+        df = df[other_cols + cols_present]
         
         print(f"    Cleaned NEI dataset: {len(df):,} records")
         return df
